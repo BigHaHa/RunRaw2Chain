@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!DOCTYPE bootstrap SYSTEM "@CONFIGDIR@/ShineGeneral.dtd" [
+  <!ENTITY standardIdealDetConfig SYSTEM '@SHINEDBDIR@/detConfig/@GLOBALKEY@/standardIdealDetConfig.xml'>
+  <!ENTITY setupLegacy '@SHINEDBDIR@/detConfig/@GLOBALKEY@/SetupLegacy.xml'>
+]>
+
+<bootstrap
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xlink="http://cern.ch/na61/schema/types"
+  xsi:noNamespaceSchemaLocation='[SCHEMAPATH]/bootstrap.xsd'>
+
+  <schemaPathReplacements>
+    <replace old="[CONFIGDIR]" new="&configDir;"/>
+    <replace old="[SCHEMAPATH]" new="&schemaDir;"/>
+    <replace old="[SCHEMAPATH_IMPORTS]" new="&schemaDir;"/>
+    <replace old="[DATADIR]" new="&dataDir;"/>
+  </schemaPathReplacements>
+
+  &standardIdealDetConfig;
+  &standardLegacyClientConfig;
+  &standardRecModuleConfig;
+  &standardMoniModuleConfig;
+
+  <centralConfig>
+
+    <configLink
+      id         = "ModuleSequence"
+      xlink:href = "./ModuleSequence.xml"/>
+
+    <configLink
+      id         = "EventFileReader"
+      xlink:href = "./EventFileReader.xml"/>
+
+    <configLink
+      id         = "ShineFileExporter"
+      xlink:href = "./ShineFileExporter.xml"/>
+
+     <configLink
+      id         = "FlowQA"
+      xlink:href = "./FlowQA.xml"/>
+
+    <configLink
+      id         = "SetupLegacy"
+      xlink:href = "&setupLegacy;"/>
+
+  </centralConfig>
+
+  <!-- will be set by runModuleSeq.sh -->
+  <parameterOverrides>
+
+     <configLink id = "SetupLegacy">
+        <SetupLegacy>
+           <globalKey> 16_002  </globalKey>
+        </SetupLegacy>
+     </configLink>
+
+     <configLink id = "PatrecModuleSG">
+        <PatrecModuleSG>
+           <commonOptions>
+             <vertexFit> @VERTEXFIT@  </vertexFit>
+           </commonOptions>
+        </PatrecModuleSG>
+     </configLink>
+
+     <configLink id = "XiFitModuleSG">
+        <XiFitModuleSG>
+           <commonOptions>
+             <vertexFit> @VERTEXFIT@  </vertexFit>
+           </commonOptions>
+        </XiFitModuleSG>
+     </configLink>
+
+     <configLink id = "V0FindModuleSG">
+        <V0FindModuleSG>
+           <commonOptions>
+             <vertexFit> @VERTEXFIT@  </vertexFit>
+           </commonOptions>
+        </V0FindModuleSG>
+     </configLink>
+
+     <configLink id = "VtxModuleSG">
+        <VtxModuleSG>
+           <commonOptions>
+           <vertexFit> @VERTEXFIT@  </vertexFit>
+             <magneticField> @MAGFIELDOFF@  </magneticField>
+           </commonOptions>
+        </VtxModuleSG>
+     </configLink>
+
+     <configLink id = "ToflModuleSG">
+        <ToflModuleSG>
+           <commonOptions>
+             <vertexFit> @VERTEXFIT@  </vertexFit>
+           </commonOptions>
+        </ToflModuleSG>
+     </configLink>
+
+     <configLink id = "TofrModuleSG">
+        <TofrModuleSG>
+           <commonOptions>
+             <vertexFit> @VERTEXFIT@  </vertexFit>
+           </commonOptions>
+        </TofrModuleSG>
+     </configLink>
+
+     <configLink id = "R3dModuleSG">
+        <R3dModuleSG>
+           <commonOptions>
+             <magneticField> @MAGFIELDOFF@  </magneticField>
+           </commonOptions>
+        </R3dModuleSG>
+     </configLink>
+
+     <configLink id = "MpatModuleSG">
+        <MpatModuleSG>
+           <commonOptions>
+             <magneticField> @MAGFIELDOFF@  </magneticField>
+           </commonOptions>
+        </MpatModuleSG>
+     </configLink>
+
+  </parameterOverrides>
+
+</bootstrap>
